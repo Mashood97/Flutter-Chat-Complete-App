@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class RegisterUser extends StatelessWidget {
-  static const routeNamed = '/register-user';
+class StartUpView extends StatelessWidget {
+  static const routeNamed = '/startup-view';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+           
     );
   }
 }
