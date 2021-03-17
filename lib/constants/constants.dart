@@ -7,6 +7,8 @@ const kSizedBoxHeight = SizedBox(
 const kSizedBoxWidth = SizedBox(
   width: 10,
 );
+
+final kBorderRadius = BorderRadius.circular(10.0);
 const kPadding = EdgeInsets.all(10);
 const kPaddingLeftRight = EdgeInsets.only(left: 10, right: 10);
 const kDivider = Divider();
@@ -18,9 +20,7 @@ const kInternetErrorMessage =
 const kServerError = 'Server resources are busy, try again later';
 
 class Constant {
-
-  static showInternetSnackBar()
-  {
+  static showInternetSnackBar() {
     Get.snackbar(
       'Failed',
       kInternetErrorMessage,
@@ -28,6 +28,7 @@ class Constant {
       colorText: kWhiteColor,
     );
   }
+
   static showSuccessSnackBar(String message) {
     Get.snackbar(
       'Success',
@@ -51,7 +52,7 @@ class Constant {
       final onConfirm,
       String cancel,
       String confirm,
-        String title,
+      String title,
       Widget content}) {
     Get.defaultDialog(
       title: title,
