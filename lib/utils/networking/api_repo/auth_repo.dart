@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_chat_complete_app/constants/api.dart';
 import 'package:flutter_chat_complete_app/utils/networking/api_exceptions/network_exceptions.dart';
@@ -9,9 +8,13 @@ import '../api_client.dart';
 class AuthRepo {
   DioClient dioClient;
 
+  DioClient dbDioClient;
+
   AuthRepo() {
     var dio = Dio();
+    var dbDio = Dio();
     dioClient = DioClient(Api.firebase_auth_baseUrl, dio);
+    dbDioClient = DioClient(Api.firebase_db_baseUrl, dbDio);
   }
 
   Future<ApiResult<AuthenticationResponse>> signUpUser(
@@ -23,8 +26,30 @@ class AuthRepo {
       );
       AuthenticationResponse _responseAuth =
           AuthenticationResponse.fromJson(response);
-
+      // await createRegisteredUserNodeOnFirebase(_responseAuth, userName);
       return ApiResult.success(data: _responseAuth);
+    } catch (e) {
+      return ApiResult.failure(error: NetworkExceptions.getDioException(e));
+    }
+  }
+
+  Future<ApiResult<bool>> createRegisteredUserNodeOnFirebase(
+      AuthenticationResponse authresponse, String userName) async {
+    try {
+      final response = await dbDioClient.post(
+        Api.registerUserNodeDB,
+        data: {
+          'UserId': authresponse.userId,
+          'email': authresponse.email,
+          'tokenId': authresponse.tokenId,
+          'userName': userName,
+        },
+      );
+      if (response != null) {
+        return ApiResult.success(data: true);
+      } else {
+        return ApiResult.success(data: false);
+      }
     } catch (e) {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
     }
