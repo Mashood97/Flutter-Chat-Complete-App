@@ -138,6 +138,75 @@ class _SignInUserLanscape extends StatelessWidget {
   }
 }
 
+class _SignInUserDesktop extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
+          child: Row(
+            children: [
+              Expanded(
+                // height: mediaQuery.size.height * 0.3,
+                // width: mediaQuery.size.width * 0.3,
+                child: CustomPaintWidget(
+                  width: mediaQuery.size.width * 0.5,
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    HeaderText(
+                      text: 'Welcome Back',
+                      color: Colors.white,
+                    ),
+                    SubHeaderText(
+                      text: 'Sign in to continue your chatting',
+                      color: Colors.white,
+                    ),
+                    AndroidTextField(
+                      label: 'Email Address',
+                      prefixIconData: Icons.person_pin_circle,
+                      trailingIcon: Icons.arrow_drop_down,
+                    ),
+                    AndroidTextField(
+                      label: 'Enter Password',
+                      trailingIcon: Icons.remove_red_eye_sharp,
+                      prefixIconData: Icons.chat,
+                    ),
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: TitleHeaderText(
+                        text: 'Forgot Password?',
+                        color: Colors.white,
+                      ),
+                    ),
+                    AndroidElevatedButton(
+                      btnTitle: 'Sign in',
+                      onPressed: () {
+                        AppRoutes.navigateToChatScreen();
+                      },
+                    ),
+                    TitleHeaderText(
+                      text: 'I don\'t have an account yet',
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class SignInUser extends StatelessWidget {
   static const routeNamed = '/signin-user';
 
@@ -147,6 +216,9 @@ class SignInUser extends StatelessWidget {
       mobile: OrientationLayout(
         portrait: _SignInUserPortrait(),
         landscape: _SignInUserLanscape(),
+      ),
+      desktop: OrientationLayout(
+        landscape: _SignInUserDesktop(),
       ),
     );
   }

@@ -42,6 +42,19 @@ class _ChatScreenUserPortrait extends StatelessWidget {
                         color: Colors.white,
                         fontsize: 30.0,
                       ),
+                      Spacer(),
+                      Row(
+                        children: [
+                          TitleHeaderText(
+                            text: 'Offline',
+                            color: Colors.white,
+                          ),
+                          Switch.adaptive(
+                            value: true,
+                            onChanged: (val) {},
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   AndroidTextField(

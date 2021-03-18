@@ -12,8 +12,11 @@ class AndroidTextField extends StatelessWidget {
     this.trailingIcon,
     this.prefixIconData,
   });
+
   @override
   Widget build(BuildContext context) {
+    final _mediaQuery = MediaQuery.of(context);
+
     return Padding(
       padding: kPadding,
       child: TextFormField(
@@ -28,6 +31,7 @@ class AndroidTextField extends StatelessWidget {
             prefixIconData,
             color: kIconColor,
           ),
+          contentPadding: kPadding,
           border: OutlineInputBorder(borderRadius: kBorderRadius),
           filled: true,
           fillColor: kTextFieldFillDarkColor,

@@ -11,7 +11,6 @@ class CustomPaintWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return CustomPaint(
       size: Size(width, (width * 0.9742647058823529).toDouble()),
       //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
