@@ -1,4 +1,4 @@
-🎖 Open Source Chat App Flutter And Firebase.
+🎖 # Open Source Chat App Flutter And Firebase.
 
 # 🐛 Bugs/Requests 
 If you encounter any problems feel free to open an issue. If you feel the library is
