@@ -74,7 +74,7 @@ class _RegisterUserPotrait extends StatelessWidget {
   }
 }
 
-class _RegisterUserLanscape extends StatelessWidget {
+class _RegisterUserLandscape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -145,6 +145,78 @@ class _RegisterUserLanscape extends StatelessWidget {
   }
 }
 
+class _RegisterUserDesktop extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
+          child: Row(
+            children: [
+              Expanded(
+
+                child: CustomPaintWidget(
+                  width: mediaQuery.size.width * 0.4,
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    HeaderText(
+                      text: 'Welcome Back',
+                      color: Colors.white,
+                    ),
+                    SubHeaderText(
+                      text: 'Sign up for best chatting experience',
+                      color: Colors.white,
+                    ),
+                    AndroidTextField(
+                      label: 'Username',
+                      prefixIconData: Icons.person_pin_outlined,
+                      trailingIcon: Icons.arrow_drop_down,
+                    ),
+                    AndroidTextField(
+                      label: 'Email Address',
+                      prefixIconData: Icons.person_pin_circle,
+                      trailingIcon: Icons.arrow_drop_down,
+                    ),
+                    AndroidTextField(
+                      label: 'Password',
+                      trailingIcon: Icons.remove_red_eye_sharp,
+                      prefixIconData: Icons.chat,
+                    ),
+                    AndroidTextField(
+                      label: 'Confirm Password',
+                      trailingIcon: Icons.remove_red_eye_sharp,
+                      prefixIconData: Icons.chat,
+                    ),
+                    AndroidElevatedButton(
+                      btnTitle: 'Sign up',
+                      onPressed: () {
+                        AppRoutes.navigateToChatScreen();
+                      },
+                    ),
+                    TitleHeaderText(
+                      text: 'I already have an account',
+                      color: Colors.white,
+                    ),
+                    kSizedBoxHeight,
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class RegisterUser extends StatelessWidget {
   static const routeNamed = '/register-user';
 
@@ -153,7 +225,10 @@ class RegisterUser extends StatelessWidget {
     return ScreenTypeLayout(
       mobile: OrientationLayout(
         portrait: _RegisterUserPotrait(),
-        landscape: _RegisterUserLanscape(),
+        landscape: _RegisterUserLandscape(),
+      ),
+      desktop: OrientationLayout(
+        landscape: _RegisterUserDesktop(),
       ),
     );
   }
