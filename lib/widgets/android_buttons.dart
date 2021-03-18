@@ -4,17 +4,21 @@ import 'package:flutter_chat_complete_app/constants/constants.dart';
 class AndroidElevatedButton extends StatelessWidget {
   final String btnTitle;
   final onPressed;
+
   AndroidElevatedButton({
     this.btnTitle,
     this.onPressed,
   });
+
   @override
   Widget build(BuildContext context) {
     final _mediaQuery = MediaQuery.of(context);
     return Padding(
       padding: kPadding,
       child: SizedBox(
-        height: _mediaQuery.size.height * 0.065,
+        height: _mediaQuery.orientation == Orientation.portrait
+            ? _mediaQuery.size.height * 0.065
+            : _mediaQuery.size.height * 0.1,
         width: _mediaQuery.size.width,
         child: ElevatedButton(
           child: Text(

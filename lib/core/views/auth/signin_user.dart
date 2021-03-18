@@ -8,7 +8,7 @@ import 'package:flutter_chat_complete_app/widgets/android_textfield.dart';
 import 'package:flutter_chat_complete_app/widgets/custompaint_single_widget.dart';
 import 'package:flutter_chat_complete_app/widgets/heading_custom.dart';
 
-class _RegisterUserPotrait extends StatelessWidget {
+class _SignInUserPortrait extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -23,7 +23,7 @@ class _RegisterUserPotrait extends StatelessWidget {
               children: [
                 Center(
                   child: CustomPaintWidget(
-                    width: mediaQuery.size.width * 0.5,
+                    width: mediaQuery.size.width * 0.65,
                   ),
                 ),
                 kSizedBoxHeight,
@@ -31,12 +31,7 @@ class _RegisterUserPotrait extends StatelessWidget {
                   text: 'Welcome Back',
                 ),
                 SubHeaderText(
-                  text: 'Sign up for best chatting experience',
-                ),
-                AndroidTextField(
-                  label: 'Username',
-                  prefixIconData: Icons.person_pin_outlined,
-                  trailingIcon: Icons.arrow_drop_down,
+                  text: 'Sign in to continue your chatting',
                 ),
                 AndroidTextField(
                   label: 'Email Address',
@@ -44,23 +39,25 @@ class _RegisterUserPotrait extends StatelessWidget {
                   trailingIcon: Icons.arrow_drop_down,
                 ),
                 AndroidTextField(
-                  label: 'Password',
+                  label: 'Enter Password',
                   trailingIcon: Icons.remove_red_eye_sharp,
                   prefixIconData: Icons.chat,
                 ),
-                AndroidTextField(
-                  label: 'Confirm Password',
-                  trailingIcon: Icons.remove_red_eye_sharp,
-                  prefixIconData: Icons.chat,
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: TitleHeaderText(
+                    text: 'Forgot Password?',
+                    color: Colors.white,
+                  ),
                 ),
                 AndroidElevatedButton(
-                  btnTitle: 'Sign up',
+                  btnTitle: 'Sign in',
                   onPressed: () {
                     AppRoutes.navigateToChatScreen();
                   },
                 ),
                 TitleHeaderText(
-                  text: 'I already have an account',
+                  text: 'I don\'t have an account yet',
                   color: Colors.white,
                 ),
               ],
@@ -72,7 +69,7 @@ class _RegisterUserPotrait extends StatelessWidget {
   }
 }
 
-class _RegisterUserLanscape extends StatelessWidget {
+class _SignInUserLanscape extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -84,9 +81,9 @@ class _RegisterUserLanscape extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: mediaQuery.size.width * 0.4,
+                width: mediaQuery.size.width * 0.5,
                 child: CustomPaintWidget(
-                  width: mediaQuery.size.width * 0.4,
+                  width: mediaQuery.size.width * 0.5,
                 ),
               ),
               Expanded(
@@ -97,12 +94,7 @@ class _RegisterUserLanscape extends StatelessWidget {
                       text: 'Welcome Back',
                     ),
                     SubHeaderText(
-                      text: 'Sign up for best chatting experience',
-                    ),
-                    AndroidTextField(
-                      label: 'Username',
-                      prefixIconData: Icons.person_pin_outlined,
-                      trailingIcon: Icons.arrow_drop_down,
+                      text: 'Sign in to continue your chatting',
                     ),
                     AndroidTextField(
                       label: 'Email Address',
@@ -110,26 +102,27 @@ class _RegisterUserLanscape extends StatelessWidget {
                       trailingIcon: Icons.arrow_drop_down,
                     ),
                     AndroidTextField(
-                      label: 'Password',
+                      label: 'Enter Password',
                       trailingIcon: Icons.remove_red_eye_sharp,
                       prefixIconData: Icons.chat,
                     ),
-                    AndroidTextField(
-                      label: 'Confirm Password',
-                      trailingIcon: Icons.remove_red_eye_sharp,
-                      prefixIconData: Icons.chat,
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: TitleHeaderText(
+                        text: 'Forgot Password?',
+                        color: Colors.white,
+                      ),
                     ),
                     AndroidElevatedButton(
-                      btnTitle: 'Sign up',
+                      btnTitle: 'Sign in',
                       onPressed: () {
                         AppRoutes.navigateToChatScreen();
                       },
                     ),
                     TitleHeaderText(
-                      text: 'I already have an account',
+                      text: 'I don\'t have an account yet',
                       color: Colors.white,
                     ),
-                    kSizedBoxHeight,
                   ],
                 ),
               ),
@@ -141,15 +134,15 @@ class _RegisterUserLanscape extends StatelessWidget {
   }
 }
 
-class RegisterUser extends StatelessWidget {
-  static const routeNamed = '/register-user';
+class SignInUser extends StatelessWidget {
+  static const routeNamed = '/signin-user';
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: OrientationLayout(
-        portrait: _RegisterUserPotrait(),
-        landscape: _RegisterUserLanscape(),
+        portrait: _SignInUserPortrait(),
+        landscape: _SignInUserLanscape(),
       ),
     );
   }

@@ -1,61 +1,97 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_chat_complete_app/utils/custom_paints/login_char_cp.dart';
+import 'package:flutter_chat_complete_app/constants/constants.dart';
+import 'package:flutter_chat_complete_app/utils/helpers/orientation_layout.dart';
+import 'package:flutter_chat_complete_app/utils/helpers/screen_type_layout.dart';
+import 'package:flutter_chat_complete_app/utils/routes/app_routes.dart';
 import 'package:flutter_chat_complete_app/widgets/android_buttons.dart';
-import 'package:flutter_chat_complete_app/widgets/android_textfield.dart';
+import 'package:flutter_chat_complete_app/widgets/custompaint_single_widget.dart';
 import 'package:flutter_chat_complete_app/widgets/heading_custom.dart';
 
-class StartUpView extends StatelessWidget {
-  static const routeNamed = '/startup-view';
+class _StartUpViewPortrait extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(
-              child: CustomPaint(
-                size: Size(
-                    mediaQuery.size.width * 0.65,
-                    (mediaQuery.size.width * 0.65 * 0.9742647058823529)
-                        .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                painter: RPSCustomPainter(),
-              ),
+            CustomPaintWidget(
+              width: mediaQuery.size.width * 0.65,
             ),
+            kSizedBoxHeight,
             HeaderText(
               text: 'Welcome Back',
             ),
-            SubHeaderText(
-              text: 'Sign in to continue your chatting',
-            ),
-            AndroidTextField(
-              label: 'Email Address',
-              prefixIconData: Icons.person_pin_circle,
-              trailingIcon: Icons.arrow_drop_down,
-            ),
-            AndroidTextField(
-              label: 'Enter Password',
-              trailingIcon: Icons.remove_red_eye_sharp,
-              prefixIconData: Icons.chat,
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: TitleHeaderText(
-                text: 'Forgot Password?',
-              ),
-            ),
+            kSizedBoxHeight,
             AndroidElevatedButton(
               btnTitle: 'Sign in',
-              onPressed: () {},
+              onPressed: () {
+                AppRoutes.navigateToLoginUser();
+              },
             ),
-            TitleHeaderText(
-              text: 'I don\'t have an account yet',
+            AndroidElevatedButton(
+              btnTitle: 'Sign up',
+              onPressed: () {
+                AppRoutes.navigateToRegisterUser();
+              },
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _StartUpViewLanscape extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: mediaQuery.size.height * 0.5,
+              width: mediaQuery.size.width * 0.3,
+              child: CustomPaintWidget(
+                width: mediaQuery.size.width * 0.3,
+              ),
+            ),
+            kSizedBoxHeight,
+            HeaderText(
+              text: 'Welcome Back',
+            ),
+            kSizedBoxHeight,
+            AndroidElevatedButton(
+              btnTitle: 'Sign in',
+              onPressed: () {
+                AppRoutes.navigateToLoginUser();
+              },
+            ),
+            AndroidElevatedButton(
+              btnTitle: 'Sign up',
+              onPressed: () {
+                AppRoutes.navigateToRegisterUser();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class StartUpView extends StatelessWidget {
+  static const routeNamed = '/startup-view';
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenTypeLayout(
+      mobile: OrientationLayout(
+        portrait: _StartUpViewPortrait(),
+        landscape: _StartUpViewLanscape(),
       ),
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_chat_complete_app/constants/constants.dart';
+import 'package:flutter_chat_complete_app/utils/routes/Custom_Page_Transition.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final kTextFieldFillDarkColor = Color.fromRGBO(63, 60, 78, 1);
@@ -28,15 +30,26 @@ final kDarkTheme = ThemeData(
       color: Colors.white,
     ),
   ),
+  pageTransitionsTheme: PageTransitionsTheme(builders: {
+    TargetPlatform.android: BuildCustomPageTransition(),
+    TargetPlatform.iOS: BuildCustomPageTransition(),
+    TargetPlatform.windows: BuildCustomPageTransition(),
+    TargetPlatform.macOS: BuildCustomPageTransition(),
+    TargetPlatform.linux: BuildCustomPageTransition(),
+    TargetPlatform.fuchsia: BuildCustomPageTransition(),
+  }),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       primary: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: kBorderRadius,),
+      shape: RoundedRectangleBorder(
+        borderRadius: kBorderRadius,
+      ),
       textStyle: GoogleFonts.openSans(
-          letterSpacing: 1.0,
-          fontSize: 12.0,
-          fontWeight: FontWeight.w600,
-          color: Colors.black,),
+        letterSpacing: 1.0,
+        fontSize: 12.0,
+        fontWeight: FontWeight.w600,
+        color: Colors.black,
+      ),
     ),
   ),
 );

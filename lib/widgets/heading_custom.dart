@@ -12,7 +12,9 @@ class HeaderText extends StatelessWidget {
       padding: kPaddingLeftRight,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline4,
+        style: Theme.of(context).textTheme.headline4.copyWith(
+              fontSize: 24,
+            ),
       ),
     );
   }
@@ -37,8 +39,9 @@ class SubHeaderText extends StatelessWidget {
 
 class TitleHeaderText extends StatelessWidget {
   final String text;
+  final Color color;
 
-  TitleHeaderText({this.text});
+  TitleHeaderText({this.text, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,9 @@ class TitleHeaderText extends StatelessWidget {
       padding: kPaddingLeftRight,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.headline6.copyWith(
+              color: color,
+            ),
       ),
     );
   }

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_chat_complete_app/core/views/auth/register_user.dart';
+import 'package:flutter_chat_complete_app/core/views/auth/signin_user.dart';
 import 'package:flutter_chat_complete_app/core/views/startup/startup_view.dart';
 import 'package:get/get.dart';
 
+import 'core/views/chat/chat_screen.dart';
 import 'utils/themes/dark_theme.dart';
 
 void main() {
@@ -30,7 +32,15 @@ class MyApp extends StatelessWidget {
           name: StartUpView.routeNamed,
           page: () => StartUpView(),
         ),
+        GetPage(
+          name: SignInUser.routeNamed,
+          page: () => SignInUser(),
+        ),
+        GetPage(
+          name: ChatScreenUser.routeNamed,
+          page: () => ChatScreenUser(),
+        ),
       ],
-          );
+    );
   }
 }
