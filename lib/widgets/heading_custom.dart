@@ -31,11 +31,14 @@ class SubHeaderText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: kPaddingLeftRight,
-      child: Text(
-        text,
-        style: Theme.of(context).textTheme.headline5.copyWith(
-          fontSize: 20.0,
-          color: color,
+      child: FittedBox(
+        child: Text(
+          text,
+          // maxLines: 3,
+          style: Theme.of(context).textTheme.headline5.copyWith(
+            fontSize: 20.0,
+            color: color,
+          ),
         ),
       ),
     );

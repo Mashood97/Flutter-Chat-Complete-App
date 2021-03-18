@@ -53,19 +53,10 @@ class _ChatScreenUserPortrait extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
-                  ),
-                ),
-                child: ListView.separated(
-                  itemBuilder: (ctx, index) => getChatListLayoutTile(),
-                  separatorBuilder: (_, __) => kDivider,
-                  itemCount: 10,
-                ),
+              child: ListView.separated(
+                itemBuilder: (ctx, index) => getChatListLayoutTile(),
+                separatorBuilder: (_, __) => kDivider,
+                itemCount: 10,
               ),
             ),
           ],
@@ -77,19 +68,21 @@ class _ChatScreenUserPortrait extends StatelessWidget {
   Widget getChatListLayoutTile() {
     return ListTile(
       contentPadding: kPadding,
-      title: SubHeaderText(
+      title: HeaderText(
         text: 'Username',
-        color: Colors.black,
+        color: Colors.white,
+        fontsize: 20.0,
       ),
       subtitle: Row(
         children: [
           Icon(
             Icons.done,
             size: 15,
+            color: Colors.white,
           ),
           TitleHeaderText(
             text: 'Message',
-            color: Colors.black,
+            color: Colors.white,
           ),
         ],
       ),
@@ -100,7 +93,7 @@ class _ChatScreenUserPortrait extends StatelessWidget {
         children: [
           TitleHeaderText(
             text: '${DateFormat().add_jm().format(DateTime.now())}',
-            color: Colors.black,
+            color: Colors.white,
           ),
           messageCountWidget('5'),
         ],
@@ -121,21 +114,131 @@ class _ChatScreenUserPortrait extends StatelessWidget {
 }
 
 class _ChatScreenUserLanscape extends StatelessWidget {
+  Widget getChatListLayoutTile() {
+    return ListTile(
+      contentPadding: kPadding,
+      title: HeaderText(
+        text: 'Username',
+        color: Colors.white,
+        fontsize: 20.0,
+      ),
+      subtitle: Row(
+        children: [
+          Icon(
+            Icons.done,
+            size: 15,
+            color: Colors.white,
+          ),
+          TitleHeaderText(
+            text: 'Message',
+            color: Colors.white,
+          ),
+        ],
+      ),
+      leading: CircularImage(),
+      trailing: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          TitleHeaderText(
+            text: '${DateFormat().add_jm().format(DateTime.now())}',
+            color: Colors.white,
+          ),
+          messageCountWidget('5'),
+        ],
+      ),
+    );
+  }
+
+  Widget messageCountWidget(String counter) {
+    return CircleAvatar(
+      backgroundColor: Colors.red,
+      radius: 15,
+      child: TitleHeaderText(
+        text: counter,
+        color: Colors.white,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-
     return Scaffold(
       body: SafeArea(
         child: Row(
           children: [
             Expanded(
               flex: 2,
-              child: Container(),
+              child: Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    HeaderText(
+                      text: 'Chats',
+                      color: Colors.white,
+                      fontsize: 30.0,
+                    ),
+                    AndroidTextField(
+                      label: 'Search',
+                      trailingIcon: Icons.filter_list,
+                      prefixIconData: Icons.search_sharp,
+                    ),
+                    Expanded(
+                      child: ListView.separated(
+                        itemBuilder: (ctx, index) => getChatListLayoutTile(),
+                        separatorBuilder: (_, __) => kDivider,
+                        itemCount: 10,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Expanded(
-              child: Container(
-                color: kTextFieldFillDarkColor,
+              child: SingleChildScrollView(
+                padding: kPadding,
+                child: Container(
+                  padding: kPadding,
+                  decoration: BoxDecoration(
+                    color: kTextFieldFillDarkColor,
+                    borderRadius: kBorderRadius,
+                  ),
+                  child: Column(
+                    children: [
+                      CircularImage(),
+                      SubHeaderText(
+                        text: 'Username',
+                        color: Colors.white,
+                      ),
+                      kDivider,
+                      SubHeaderText(
+                        text: 'About',
+                        color: Colors.white,
+                      ),
+                      kDividerBlack,
+                      SubHeaderText(
+                        text: 'Shared Files',
+                        color: Colors.white,
+                      ),
+                      kDividerBlack,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SubHeaderText(
+                            text: 'Offline',
+                            color: Colors.white,
+                          ),
+                          Switch.adaptive(
+                            value: true,
+                            onChanged: (val) {},
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
