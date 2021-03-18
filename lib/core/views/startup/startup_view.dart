@@ -22,6 +22,7 @@ class _StartUpViewPortrait extends StatelessWidget {
             kSizedBoxHeight,
             HeaderText(
               text: 'Welcome Back',
+              color: Colors.white,
             ),
             kSizedBoxHeight,
             AndroidElevatedButton(
@@ -62,6 +63,7 @@ class _StartUpViewLanscape extends StatelessWidget {
             kSizedBoxHeight,
             HeaderText(
               text: 'Welcome Back',
+              color: Colors.white,
             ),
             kSizedBoxHeight,
             AndroidElevatedButton(

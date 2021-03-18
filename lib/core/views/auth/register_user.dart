@@ -29,9 +29,11 @@ class _RegisterUserPotrait extends StatelessWidget {
                 kSizedBoxHeight,
                 HeaderText(
                   text: 'Welcome Back',
+                  color: Colors.white,
                 ),
                 SubHeaderText(
                   text: 'Sign up for best chatting experience',
+                  color: Colors.white,
                 ),
                 AndroidTextField(
                   label: 'Username',
@@ -95,9 +97,11 @@ class _RegisterUserLanscape extends StatelessWidget {
                   children: [
                     HeaderText(
                       text: 'Welcome Back',
+                      color: Colors.white,
                     ),
                     SubHeaderText(
                       text: 'Sign up for best chatting experience',
+                      color: Colors.white,
                     ),
                     AndroidTextField(
                       label: 'Username',

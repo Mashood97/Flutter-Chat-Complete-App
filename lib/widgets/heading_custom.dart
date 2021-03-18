@@ -3,8 +3,9 @@ import 'package:flutter_chat_complete_app/constants/constants.dart';
 
 class HeaderText extends StatelessWidget {
   final String text;
-
-  HeaderText({this.text});
+  final Color color;
+  final double fontsize;
+  HeaderText({this.text, this.color,this.fontsize = 24});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +13,10 @@ class HeaderText extends StatelessWidget {
       padding: kPaddingLeftRight,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline4.copyWith(
-              fontSize: 24,
-            ),
+        style: Theme.of(context)
+            .textTheme
+            .headline4
+            .copyWith(fontSize: fontsize, color: color),
       ),
     );
   }
@@ -22,8 +24,8 @@ class HeaderText extends StatelessWidget {
 
 class SubHeaderText extends StatelessWidget {
   final String text;
-
-  SubHeaderText({this.text});
+  final Color color;
+  SubHeaderText({this.text,this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,10 @@ class SubHeaderText extends StatelessWidget {
       padding: kPaddingLeftRight,
       child: Text(
         text,
-        style: Theme.of(context).textTheme.headline5,
+        style: Theme.of(context).textTheme.headline5.copyWith(
+          fontSize: 20.0,
+          color: color,
+        ),
       ),
     );
   }

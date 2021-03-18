@@ -14,13 +14,13 @@ final kDarkTheme = ThemeData(
     headline6: GoogleFonts.openSans(
       letterSpacing: 1.0,
       fontSize: 12.0,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
       color: Colors.white,
     ),
     headline5: GoogleFonts.openSans(
       letterSpacing: 1.0,
       fontSize: 14.0,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
     headline4: GoogleFonts.openSans(

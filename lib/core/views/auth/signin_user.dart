@@ -29,9 +29,11 @@ class _SignInUserPortrait extends StatelessWidget {
                 kSizedBoxHeight,
                 HeaderText(
                   text: 'Welcome Back',
+                  color: Colors.white,
                 ),
                 SubHeaderText(
                   text: 'Sign in to continue your chatting',
+                  color: Colors.white,
                 ),
                 AndroidTextField(
                   label: 'Email Address',
@@ -92,9 +94,11 @@ class _SignInUserLanscape extends StatelessWidget {
                   children: [
                     HeaderText(
                       text: 'Welcome Back',
+                      color: Colors.white,
                     ),
                     SubHeaderText(
                       text: 'Sign in to continue your chatting',
+                      color: Colors.white,
                     ),
                     AndroidTextField(
                       label: 'Email Address',
