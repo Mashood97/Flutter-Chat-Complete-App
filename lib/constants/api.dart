@@ -8,7 +8,7 @@ class Api {
       'https://chatapp-38cc6-default-rtdb.firebaseio.com/';
   static const String signUpUser = 'signUp';
   static const String signInUser = 'signInWithPassword';
-  static const String registerUserNodeDB = 'RegisteredUserNode.json';
+  static const String registerUserNodeDB = 'RegisteredUserNode';//.json
 }
 
 //    final url = 'https://flutter-firebase-shop-app.firebaseio.com/orders/$userId.json?auth=$authToken';

@@ -19,6 +19,7 @@ final _authController = Get.put(
 );
 
 class _RegisterUserPotrait extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -28,87 +29,102 @@ class _RegisterUserPotrait extends StatelessWidget {
         child: Center(
           child: SingleChildScrollView(
             physics: ClampingScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Center(
-                  child: CustomPaintWidget(
-                    width: mediaQuery.size.width * 0.5,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Center(
+                    child: CustomPaintWidget(
+                      width: mediaQuery.size.width * 0.5,
+                    ),
                   ),
-                ),
-                kSizedBoxHeight,
-                HeaderText(
-                  text: 'Welcome Back',
-                  color: Colors.white,
-                ),
-                SubHeaderText(
-                  text: 'Sign up for best chatting experience',
-                  color: Colors.white,
-                ),
-                AndroidTextField(
-                  controller: _authController.userNameController,
-                  label: 'Username',
-                  prefixIconData: Icons.person_pin_outlined,
-                  trailingIcon: Icons.arrow_drop_down,
-                ),
-                AndroidTextField(
-                  controller: _authController.userEmailController,
-                  label: 'Email Address',
-                  prefixIconData: Icons.person_pin_circle,
-                  trailingIcon: Icons.arrow_drop_down,
-                ),
-                AndroidTextField(
-                  controller: _authController.userPasswordController,
-                  label: 'Password',
-                  trailingIcon: Icons.remove_red_eye_sharp,
-                  secureText: true,
-                  prefixIconData: Icons.chat,
-                ),
-                AndroidTextField(
-                  controller: _authController.userConfirmPasswordController,
-                  label: 'Confirm Password',
-                  trailingIcon: Icons.remove_red_eye_sharp,
-                  secureText: true,
-                  prefixIconData: Icons.chat,
-                ),
-                AndroidElevatedButton(
-                  btnTitle: 'Sign up',
-                  onPressed: () {
-                    if( _authController.userPasswordController.text ==  _authController.userConfirmPasswordController.text)
-                      {
-                        AuthenticationUser user = AuthenticationUser(
-                            email: _authController.userEmailController.text
-                                .toString()
-                                .trim(),
-                            password: _authController.userPasswordController.text
-                                .toString()
-                                .trim(),
-                            returnSecureToken: true);
-                        _authController.registerUser(user);
-                        Obx(() => _authController.getAuthResponse.when(
-                            idle: () => DataNotFound(),
-                            loading: () => CustomLoader(),
-                            data: (AuthenticationResponse response) {
-                              print(response.toJson());
-                              return Container();
-                            },
-                            error: (NetworkExceptions error) {
-                              Constant.showErrorSnackBar(error.toString());
-                              return DataNotFound();
-                              // return Constant.showErrorSnackBar(error.toString());
-                            }));
+                  kSizedBoxHeight,
+                  HeaderText(
+                    text: 'Welcome Back',
+                    color: Colors.white,
+                  ),
+                  SubHeaderText(
+                    text: 'Sign up for best chatting experience',
+                    color: Colors.white,
+                  ),
+                  AndroidTextField(
+                    controller: _authController.userNameController,
+                    label: 'Username',
+                    prefixIconData: Icons.person_pin_outlined,
+                    trailingIcon: Icons.arrow_drop_down,
+                    validator: (val) =>
+                        val.isEmpty ? 'Please enter username' : null,
+                  ),
+                  AndroidTextField(
+                    controller: _authController.userEmailController,
+                    label: 'Email Address',
+                    prefixIconData: Icons.person_pin_circle,
+                    trailingIcon: Icons.arrow_drop_down,
+                    validator: (val) =>
+                        val.isEmpty ? 'Please enter email address' : null,
+                  ),
+                  AndroidTextField(
+                    controller: _authController.userPasswordController,
+                    label: 'Password',
+                    trailingIcon: Icons.remove_red_eye_sharp,
+                    secureText: true,
+                    prefixIconData: Icons.chat,
+                    validator: (val) =>
+                        val.isEmpty ? 'Please enter password' : null,
+                  ),
+                  AndroidTextField(
+                    controller: _authController.userConfirmPasswordController,
+                    label: 'Confirm Password',
+                    trailingIcon: Icons.remove_red_eye_sharp,
+                    secureText: true,
+                    prefixIconData: Icons.chat,
+                    validator: (val) =>
+                        val.isEmpty ? 'Please enter confirm password' : null,
+                  ),
+                  AndroidElevatedButton(
+                    btnTitle: 'Sign up',
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        if (_authController.userPasswordController.text ==
+                            _authController
+                                .userConfirmPasswordController.text) {
+                          AuthenticationUser user = AuthenticationUser(
+                              email: _authController.userEmailController.text
+                                  .toString()
+                                  .trim(),
+                              password: _authController
+                                  .userPasswordController.text
+                                  .toString()
+                                  .trim(),
+                              returnSecureToken: true);
+                          _authController.registerUser(user);
+                          Obx(() => _authController.getAuthResponse.when(
+                              idle: () => DataNotFound(),
+                              
+                              loading: () => CustomLoader(),
+                              data: (AuthenticationResponse response) {
+                                print(response.toJson());
+                                return Container();
+                              },
+                              error: (NetworkExceptions error) {
+                                Constant.showErrorSnackBar(error.toString());
+                                return DataNotFound();
+                                // return Constant.showErrorSnackBar(error.toString());
+                              }));
+                        } else {
+                          Constant.showErrorSnackBar(
+                              'Password\'s don\'t match,');
+                        }
                       }
-                    else{
-
-                    }
-
-                  },
-                ),
-                TitleHeaderText(
-                  text: 'I already have an account',
-                  color: Colors.white,
-                ),
-              ],
+                    },
+                  ),
+                  TitleHeaderText(
+                    text: 'I already have an account',
+                    color: Colors.white,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_complete_app/constants/constants.dart';
+import 'package:flutter_chat_complete_app/core/controllers/chat/chat_controller.dart';
 import 'package:flutter_chat_complete_app/utils/helpers/orientation_layout.dart';
 import 'package:flutter_chat_complete_app/utils/helpers/screen_type_layout.dart';
 import 'package:flutter_chat_complete_app/utils/themes/dark_theme.dart';
 import 'package:flutter_chat_complete_app/widgets/android_textfield.dart';
 import 'package:flutter_chat_complete_app/widgets/circular_image.dart';
 import 'package:flutter_chat_complete_app/widgets/heading_custom.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+final _chatController = Get.put(ChatController());
 
 class _ChatScreenUserPortrait extends StatelessWidget {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -74,6 +78,14 @@ class _ChatScreenUserPortrait extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.person_add,
+        ),
+        onPressed: () {
+          _chatController.logoutUser();
+        },
       ),
     );
   }

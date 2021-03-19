@@ -58,9 +58,14 @@ class _SignInUserPortrait extends StatelessWidget {
                     AppRoutes.navigateToChatScreen();
                   },
                 ),
-                TitleHeaderText(
-                  text: 'I don\'t have an account yet',
-                  color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    AppRoutes.navigateToRegisterUser();
+                  },
+                  child: TitleHeaderText(
+                    text: 'I don\'t have an account yet',
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),

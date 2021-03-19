@@ -7,15 +7,15 @@ import 'package:get/get.dart';
 
 class AppRoutes {
   static void navigateToRegisterUser() {
-    Get.toNamed(RegisterUser.routeNamed);
+    Get.offAllNamed(RegisterUser.routeNamed);
   }
 
 
   static void navigateToLoginUser() {
-    Get.toNamed(SignInUser.routeNamed);
+    Get.offAllNamed(SignInUser.routeNamed);
   }
   static void navigateToChatScreen() {
-    Get.toNamed(ChatScreenUser.routeNamed);
+    Get.offAllNamed(ChatScreenUser.routeNamed);
   }
 
   static void navigateToStartUp() {

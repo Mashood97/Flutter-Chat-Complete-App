@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_complete_app/constants/constants.dart';
+import 'package:flutter_chat_complete_app/core/controllers/startup/startup_controller.dart';
 import 'package:flutter_chat_complete_app/utils/helpers/orientation_layout.dart';
 import 'package:flutter_chat_complete_app/utils/helpers/screen_type_layout.dart';
 import 'package:flutter_chat_complete_app/utils/routes/app_routes.dart';
 import 'package:flutter_chat_complete_app/widgets/android_buttons.dart';
 import 'package:flutter_chat_complete_app/widgets/custompaint_single_widget.dart';
 import 'package:flutter_chat_complete_app/widgets/heading_custom.dart';
+import 'package:get/get.dart';
+
 
 class _StartUpViewPortrait extends StatelessWidget {
   @override
@@ -20,23 +23,7 @@ class _StartUpViewPortrait extends StatelessWidget {
               width: mediaQuery.size.width * 0.65,
             ),
             kSizedBoxHeight,
-            HeaderText(
-              text: 'Welcome Back',
-              color: Colors.white,
-            ),
-            kSizedBoxHeight,
-            AndroidElevatedButton(
-              btnTitle: 'Sign in',
-              onPressed: () {
-                AppRoutes.navigateToLoginUser();
-              },
-            ),
-            AndroidElevatedButton(
-              btnTitle: 'Sign up',
-              onPressed: () {
-                AppRoutes.navigateToRegisterUser();
-              },
-            ),
+            
           ],
         ),
       ),
@@ -61,24 +48,7 @@ class _StartUpViewLanscape extends StatelessWidget {
               ),
             ),
             kSizedBoxHeight,
-            HeaderText(
-              text: 'Welcome Back',
-              color: Colors.white,
-            ),
-            kSizedBoxHeight,
-            AndroidElevatedButton(
-              btnTitle: 'Sign in',
-              onPressed: () {
-                AppRoutes.navigateToLoginUser();
-              },
-            ),
-            AndroidElevatedButton(
-              btnTitle: 'Sign up',
-              onPressed: () {
-                AppRoutes.navigateToRegisterUser();
-              },
-            ),
-          ],
+           ],
         ),
       ),
     );
@@ -86,8 +56,12 @@ class _StartUpViewLanscape extends StatelessWidget {
 }
 
 class StartUpView extends StatelessWidget {
+  
   static const routeNamed = '/startup-view';
 
+final _startUpController = Get.put(
+  StartUpController(),
+);
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(

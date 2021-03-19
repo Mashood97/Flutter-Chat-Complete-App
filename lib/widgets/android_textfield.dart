@@ -9,23 +9,25 @@ class AndroidTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool secureText;
 
+  final validator;
+
   AndroidTextField({
     this.label,
     this.trailingIcon,
     this.prefixIconData,
     this.controller,
+    this.validator,
     this.secureText = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final _mediaQuery = MediaQuery.of(context);
-
     return Padding(
       padding: kPadding,
       child: TextFormField(
         controller: controller,
         obscureText: secureText,
+        validator: validator,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: Theme.of(context).textTheme.headline6,

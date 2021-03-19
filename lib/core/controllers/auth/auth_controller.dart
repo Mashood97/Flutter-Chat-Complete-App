@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_chat_complete_app/constants/constants.dart';
+import 'package:flutter_chat_complete_app/utils/local_storage/getstorage_db.dart';
 import 'package:flutter_chat_complete_app/utils/networking/api_exceptions/network_exceptions.dart';
 import 'package:flutter_chat_complete_app/utils/networking/api_repo/auth_repo.dart';
 import 'package:flutter_chat_complete_app/utils/networking/api_results/api_result.dart';
@@ -35,8 +36,6 @@ class AuthController extends GetxController {
   ResultState<AuthenticationResponse> get getAuthResponse =>
       _authenticationResponseState.value;
 
-
-
   //all methods mentioned from here:
 
   Future registerUser(AuthenticationUser user) async {
@@ -45,8 +44,10 @@ class AuthController extends GetxController {
           await _authRepo.signUpUser(user);
       apiResult.when(success: (AuthenticationResponse response) async {
         if (response != null) {
-          if (_userNameController.text != null || _userNameController.text.isNotEmpty || _userNameController.text != '') {
-            await addSignUpUserToDB(response, _userNameController.text );
+          if (_userNameController.text != null ||
+              _userNameController.text.isNotEmpty ||
+              _userNameController.text != '') {
+            await addSignUpUserToDB(response, _userNameController.text);
           } else {
             Constant.showErrorSnackBar('Please enter the valid username');
           }
@@ -68,8 +69,17 @@ class AuthController extends GetxController {
         await _authRepo.createRegisteredUserNodeOnFirebase(response, userName);
     _dbInsert.when(success: (bool isInserted) {
       if (isInserted) {
+        final authdata = {
+          'UserId': response.userId,
+          'userName': userName,
+          'email': response.email,
+          'tokenId': response.tokenId
+        };
+        GetStorageDB.writeAuthDataToDb(authdata);
         Constant.showSuccessSnackBar('Registration Successful');
-        AppRoutes.navigateToChatScreen();
+        Future.delayed(Duration(seconds: 2), () {
+          AppRoutes.navigateToChatScreen();
+        });
       } else {
         Constant.showErrorSnackBar('Unable to add data on db, try again later');
         _addSignUpUserToDB.value = ResultState.idle();

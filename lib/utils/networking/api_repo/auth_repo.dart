@@ -37,14 +37,15 @@ class AuthRepo {
   Future<ApiResult<bool>> createRegisteredUserNodeOnFirebase(
       AuthenticationResponse authresponse, String userName) async {
     try {
-      final response = await dbDioClient.post(Api.registerUserNodeDB,
-          data: json.encode({
-            'UserId': authresponse.userId,
-            'email': authresponse.email,
-            'tokenId': authresponse.tokenId,
-            'userName': userName,
-          }),
-          queryParameters: {
+      final response = await dbDioClient
+          .post('${Api.registerUserNodeDB}/${authresponse.userId}.json',
+              data: json.encode({
+                'UserId': authresponse.userId,
+                'email': authresponse.email,
+                'tokenId': authresponse.tokenId,
+                'userName': userName,
+              }),
+              queryParameters: {
             'auth': authresponse.tokenId,
           });
       if (response != null) {
