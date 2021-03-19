@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_chat_complete_app/constants/api.dart';
 import 'package:flutter_chat_complete_app/utils/networking/api_exceptions/network_exceptions.dart';
@@ -20,13 +22,12 @@ class AuthRepo {
   Future<ApiResult<AuthenticationResponse>> signUpUser(
       AuthenticationUser user) async {
     try {
-      final response = await dioClient.post(
-        Api.signUpUser,
-        data: user.toJson(),
-      );
+      final response = await dioClient
+          .post(Api.signUpUser, data: user.toJson(), queryParameters: {
+        'key': Api.key,
+      });
       AuthenticationResponse _responseAuth =
           AuthenticationResponse.fromJson(response);
-      // await createRegisteredUserNodeOnFirebase(_responseAuth, userName);
       return ApiResult.success(data: _responseAuth);
     } catch (e) {
       return ApiResult.failure(error: NetworkExceptions.getDioException(e));
@@ -36,15 +37,16 @@ class AuthRepo {
   Future<ApiResult<bool>> createRegisteredUserNodeOnFirebase(
       AuthenticationResponse authresponse, String userName) async {
     try {
-      final response = await dbDioClient.post(
-        Api.registerUserNodeDB,
-        data: {
-          'UserId': authresponse.userId,
-          'email': authresponse.email,
-          'tokenId': authresponse.tokenId,
-          'userName': userName,
-        },
-      );
+      final response = await dbDioClient.post(Api.registerUserNodeDB,
+          data: json.encode({
+            'UserId': authresponse.userId,
+            'email': authresponse.email,
+            'tokenId': authresponse.tokenId,
+            'userName': userName,
+          }),
+          queryParameters: {
+            'auth': authresponse.tokenId,
+          });
       if (response != null) {
         return ApiResult.success(data: true);
       } else {

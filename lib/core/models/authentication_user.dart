@@ -11,7 +11,11 @@ class AuthenticationUser{
   @JsonKey(name: "returnSecureToken")
   bool returnSecureToken;
 
-  AuthenticationUser();
+  AuthenticationUser({
+    this.email,
+    this.password,
+    this.returnSecureToken
+});
 
   factory AuthenticationUser.fromJson(Map<String, dynamic> json) =>
       _$AuthenticationUserFromJson(json);

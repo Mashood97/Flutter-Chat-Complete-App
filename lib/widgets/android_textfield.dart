@@ -6,11 +6,15 @@ class AndroidTextField extends StatelessWidget {
   final String label;
   final IconData trailingIcon;
   final IconData prefixIconData;
+  final TextEditingController controller;
+  final bool secureText;
 
   AndroidTextField({
     this.label,
     this.trailingIcon,
     this.prefixIconData,
+    this.controller,
+    this.secureText = false,
   });
 
   @override
@@ -20,6 +24,8 @@ class AndroidTextField extends StatelessWidget {
     return Padding(
       padding: kPadding,
       child: TextFormField(
+        controller: controller,
+        obscureText: secureText,
         decoration: InputDecoration(
           labelText: label,
           labelStyle: Theme.of(context).textTheme.headline6,

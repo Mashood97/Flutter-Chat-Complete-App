@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_complete_app/constants/constants.dart';
+import 'package:flutter_chat_complete_app/core/controllers/auth/auth_controller.dart';
+import 'package:flutter_chat_complete_app/core/models/authentication_user.dart';
 import 'package:flutter_chat_complete_app/utils/helpers/orientation_layout.dart';
 import 'package:flutter_chat_complete_app/utils/helpers/screen_type_layout.dart';
+import 'package:flutter_chat_complete_app/utils/networking/api_exceptions/network_exceptions.dart';
 import 'package:flutter_chat_complete_app/utils/routes/app_routes.dart';
 import 'package:flutter_chat_complete_app/widgets/android_buttons.dart';
 import 'package:flutter_chat_complete_app/widgets/android_textfield.dart';
 import 'package:flutter_chat_complete_app/widgets/custompaint_single_widget.dart';
+import 'package:flutter_chat_complete_app/widgets/data_not_found.dart';
 import 'package:flutter_chat_complete_app/widgets/heading_custom.dart';
+import 'package:flutter_chat_complete_app/widgets/loader_custom.dart';
+import 'package:get/get.dart';
+
+final _authController = Get.put(
+  AuthController(),
+);
 
 class _RegisterUserPotrait extends StatelessWidget {
   @override
@@ -36,29 +46,62 @@ class _RegisterUserPotrait extends StatelessWidget {
                   color: Colors.white,
                 ),
                 AndroidTextField(
+                  controller: _authController.userNameController,
                   label: 'Username',
                   prefixIconData: Icons.person_pin_outlined,
                   trailingIcon: Icons.arrow_drop_down,
                 ),
                 AndroidTextField(
+                  controller: _authController.userEmailController,
                   label: 'Email Address',
                   prefixIconData: Icons.person_pin_circle,
                   trailingIcon: Icons.arrow_drop_down,
                 ),
                 AndroidTextField(
+                  controller: _authController.userPasswordController,
                   label: 'Password',
                   trailingIcon: Icons.remove_red_eye_sharp,
+                  secureText: true,
                   prefixIconData: Icons.chat,
                 ),
                 AndroidTextField(
+                  controller: _authController.userConfirmPasswordController,
                   label: 'Confirm Password',
                   trailingIcon: Icons.remove_red_eye_sharp,
+                  secureText: true,
                   prefixIconData: Icons.chat,
                 ),
                 AndroidElevatedButton(
                   btnTitle: 'Sign up',
                   onPressed: () {
-                    AppRoutes.navigateToChatScreen();
+                    if( _authController.userPasswordController.text ==  _authController.userConfirmPasswordController.text)
+                      {
+                        AuthenticationUser user = AuthenticationUser(
+                            email: _authController.userEmailController.text
+                                .toString()
+                                .trim(),
+                            password: _authController.userPasswordController.text
+                                .toString()
+                                .trim(),
+                            returnSecureToken: true);
+                        _authController.registerUser(user);
+                        Obx(() => _authController.getAuthResponse.when(
+                            idle: () => DataNotFound(),
+                            loading: () => CustomLoader(),
+                            data: (AuthenticationResponse response) {
+                              print(response.toJson());
+                              return Container();
+                            },
+                            error: (NetworkExceptions error) {
+                              Constant.showErrorSnackBar(error.toString());
+                              return DataNotFound();
+                              // return Constant.showErrorSnackBar(error.toString());
+                            }));
+                      }
+                    else{
+
+                    }
+
                   },
                 ),
                 TitleHeaderText(
@@ -104,24 +147,30 @@ class _RegisterUserLandscape extends StatelessWidget {
                       color: Colors.white,
                     ),
                     AndroidTextField(
+                      controller: _authController.userNameController,
                       label: 'Username',
                       prefixIconData: Icons.person_pin_outlined,
                       trailingIcon: Icons.arrow_drop_down,
                     ),
                     AndroidTextField(
+                      controller: _authController.userEmailController,
                       label: 'Email Address',
                       prefixIconData: Icons.person_pin_circle,
                       trailingIcon: Icons.arrow_drop_down,
                     ),
                     AndroidTextField(
+                      controller: _authController.userPasswordController,
                       label: 'Password',
                       trailingIcon: Icons.remove_red_eye_sharp,
                       prefixIconData: Icons.chat,
+                      secureText: true,
                     ),
                     AndroidTextField(
+                      controller: _authController.userConfirmPasswordController,
                       label: 'Confirm Password',
                       trailingIcon: Icons.remove_red_eye_sharp,
                       prefixIconData: Icons.chat,
+                      secureText: true,
                     ),
                     AndroidElevatedButton(
                       btnTitle: 'Sign up',
@@ -157,7 +206,6 @@ class _RegisterUserDesktop extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-
                 child: CustomPaintWidget(
                   width: mediaQuery.size.width * 0.4,
                 ),
@@ -176,24 +224,30 @@ class _RegisterUserDesktop extends StatelessWidget {
                       color: Colors.white,
                     ),
                     AndroidTextField(
+                      controller: _authController.userNameController,
                       label: 'Username',
                       prefixIconData: Icons.person_pin_outlined,
                       trailingIcon: Icons.arrow_drop_down,
                     ),
                     AndroidTextField(
+                      controller: _authController.userEmailController,
                       label: 'Email Address',
                       prefixIconData: Icons.person_pin_circle,
                       trailingIcon: Icons.arrow_drop_down,
                     ),
                     AndroidTextField(
+                      controller: _authController.userPasswordController,
                       label: 'Password',
                       trailingIcon: Icons.remove_red_eye_sharp,
                       prefixIconData: Icons.chat,
+                      secureText: true,
                     ),
                     AndroidTextField(
+                      controller: _authController.userConfirmPasswordController,
                       label: 'Confirm Password',
                       trailingIcon: Icons.remove_red_eye_sharp,
                       prefixIconData: Icons.chat,
+                      secureText: true,
                     ),
                     AndroidElevatedButton(
                       btnTitle: 'Sign up',
